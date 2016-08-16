@@ -19,6 +19,6 @@ public class Start_Button : MonoBehaviour {
 
 	public void Quit()
 	{
-		SceneManager.LoadScene ("Game");
+		SceneManager.LoadScene ("level Blockout");
 	}
 }
