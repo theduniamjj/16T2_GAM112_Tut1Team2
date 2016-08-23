@@ -18,6 +18,16 @@ public class Player_Controller : MonoBehaviour {
     float prevPos = 0;
     private Rigidbody rb;
 
+    // Manage gearchange SFX
+    private AudioSource engineSFX;
+    public Animator engineAnimator;
+    public float speedFactor;
+    public int currentGear = 0;
+    public float gear1 = 0.25f;
+    public float gear2 = 0.5f;
+    public float gear3 = 0.75f;
+    public float gear4 = 1f;
+
     /*
     Wheels[0]: Left Back
     Wheels[1]: Left Front
@@ -29,7 +39,14 @@ public class Player_Controller : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody>();
         prevPos = transform.position.x;
-    }
+        
+        // Set up the gear values
+
+        gear1 = 0.25f * maxSpeed;
+        gear2 = 0.5f * maxSpeed;
+        gear3 = 0.75f * maxSpeed;
+        gear4 = 1f * maxSpeed;
+}
 
     // Update is called once per frame
     void Update() {
@@ -62,6 +79,51 @@ public class Player_Controller : MonoBehaviour {
 
             rb.AddTorque(new Vector3(0, 0, rotationDelta), ForceMode.Acceleration);
         }
+
+        ManageAudio();
     }
 
+    void ManageAudio()
+    {
+        // Get the current speedFactor of the engine
+        speedFactor = moveSpeed / maxSpeed;
+        if(speedFactor > 0 && speedFactor < gear1)
+        {
+            if(currentGear != 1)
+            {
+                ChangeGear();
+                currentGear = 1;
+            }  
+        }
+        else if (speedFactor > gear1 && speedFactor < gear2)
+        {
+            if (currentGear != 2)
+            {
+                ChangeGear();
+                currentGear = 2;
+            }
+        }
+        else if (speedFactor > gear2 && speedFactor < gear3)
+        {
+            if (currentGear != 3)
+            {
+                ChangeGear();
+                currentGear = 3;
+            }
+        }
+        else if (speedFactor > gear3 && speedFactor < gear4)
+        {
+            if (currentGear != 4)
+            {
+                ChangeGear();
+                currentGear = 4;
+            }
+        }
+    }
+
+    void ChangeGear()
+    {
+        engineAnimator.Play("gearchange");
+        //change gear
+    }
 }
