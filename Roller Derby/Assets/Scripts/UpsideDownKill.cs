@@ -32,6 +32,7 @@ public class UpsideDownKill : MonoBehaviour {
             timeRemaining -= Time.deltaTime;
 
             if (timeRemaining <= 0)
+                PlayerPrefs.SetInt("Won", 0);
                 SceneManager.LoadScene("End");
         }
     }

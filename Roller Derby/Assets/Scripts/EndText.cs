@@ -29,6 +29,15 @@ public class EndText : MonoBehaviour {
 
         float endTime = PlayerPrefs.GetFloat("EndTime", 0);
 
+        if (PlayerPrefs.GetInt("Won") == 0)
+        {
+            endTime = -1000000;
+        }
+        PlayerPrefs.SetFloat("HighScore1", 10);
+        PlayerPrefs.SetFloat("HighScore2", 8);
+        PlayerPrefs.SetFloat("HighScore3", 6);
+        PlayerPrefs.SetFloat("HighScore4", 5);
+        PlayerPrefs.SetFloat("HighScore5", 4);
         float highScore1 = PlayerPrefs.GetFloat("HighScore1", 5.00f);
         float highScore2 = PlayerPrefs.GetFloat("HighScore2", 4.00f);
         float highScore3 = PlayerPrefs.GetFloat("HighScore3", 3.00f);
@@ -72,7 +81,7 @@ public class EndText : MonoBehaviour {
 
         for (int i = 0; i < highScores.Length; i++)
         {
-            highScoreTexts[i].text = highScores[i] + "s";
+            highScoreTexts[i].text = highScores[i] + " s";
         }
 
         PlayerPrefs.SetFloat("HighScore1", highScores[0]);
