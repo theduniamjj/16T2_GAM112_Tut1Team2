@@ -35,7 +35,7 @@ public class GameController : MonoBehaviour
     {
         currentTime -= Time.deltaTime;
 
-        timer.text = currentTime.ToString();
+        timer.text = ((int)currentTime).ToString();
 
         if (currentTime <= 0)
             LoseGame();
